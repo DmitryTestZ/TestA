@@ -1,0 +1,120 @@
+“Aircraft information” and  “Flight Information” blocks testing
+
+1.  How would you approach the test planning?
+The testing process should be separated into the Unit testing for each data type, displayed in the “Aircraft information” and  “Flight Information” blocks. It can be based on the API testing of the displaying data according to the DB (SQL). 
+Tests can be automated for running in different environments.
+As those block data are almost fully locked for the non-premium users, test cases should be separated into the “not premium” and “premium users”. In the first condition we need to verify that the user hasn’t accessed the data from the “Aircraft information” and  “Flight Information” blocks and in the second condition, verify that the user has access to all data from the “Aircraft information” and  “Flight Information” blocks.
+Additionally, according to the assumption above, the premium-user creation process should be tested in the scope of this. “Users have access to the “Aircraft information” and  “Flight Information” blocks after creating a premium account.
+
+2. What are the different sorts of information that you might ask the product team / developers? 
+From the product team: project specification, acceptance criteria for this feature, design mockup.
+	From the dev team: DB accesses, some API requests examples.
+
+3. Different test types / phases you would use for testing 
+Types:
+Functional testing - to verify that the data is displayed;
+API testing - to verify that the data is displayed according to DB;
+UI testing - to verify that the developed feature corresponded to the mockups;
+UX testing - to verify that the feature is intuitive;
+Compatibility testing - Mobile (IOS, Android) and Desktop (MacOS, Windows) testing;
+Performance testing - is the scope of the System testing;
+Phases:
+Unit testing - for each data type;
+Module testing - for the whole feature testing;
+Integration testing - for the premium user account registration (loginning) flow and accessing to the feature data;
+Regression testing;
+Smoke Release testing.
+
+ 4. High level test cases / areas that you would use to test.
+Verify that the premium user is enable to see the locked data in the “Aircraft information” and  “Flight Information” blocks;
+Verify that the non-premium user is unable to see the locked data in the “Aircraft information” and  “Flight Information” blocks;
+Verify that the locked data in the “Aircraft information” and  “Flight Information” blocks are not displayed after user is logged out;
+Verify that the Frontend data is updated after updating data in DB.
+
+
+
+ 5. How you would prioritize tests. 
+Verify that the locked data is displayed in the “Aircraft information” and  “Flight Information” blocks for the premium in users;
+Verify that the data is correspond to the DB;
+Verify that the locked data is not displayed in the “Aircraft information” and  “Flight Information” blocks for the non-premium in users;
+Integration testing;
+UI, UX and Compatibility testing;
+Automatization and Regression testing.
+
+API testing: 
+
+
+
+
+"success": true,
+	"payload": {
+		"departures": [{
+			"id": "27098720-1",
+			"airport": "BMA",
+			"cancelled": false,
+			"flightNumber": "TF269",
+			"scheduledTime": 1642516800,
+			"estimatedTime": null,
+			"actualTime": null,
+			"bestTime": 1642516800,
+			"offset": 3600,
+			"terminal": null,
+			"gate": null,
+			"airlineCode": "TF",
+			"airlineName": null
+
+
+		"arrivals": [{
+			"id": "27098718-1",
+			"airport": "BMA",
+			"cancelled": false,
+			"flightNumber": "TF260",
+			"scheduledTime": 1642515300,
+			"estimatedTime": null,
+			"actualTime": null,
+			"bestTime": 1642515300,
+			"terminal": null,
+			"offset": 3600,
+			"gate": null,
+			"airlineCode": "TF",
+			"airlineName": null
+
+It used the GET request to https://planefinder.net/api/airport/times/UME based on cookies and language, and displayed the response with departures and arrivals data.
+The API data can be tested using the VPN connection for checking the current user session data displaying. Checking is canceled and past departures and arrivals are displayed.
+Checking the flight number, scheduled time and airplane code data.
+
+
+
+Automation tests:
+
+
+describe('Page opening', () => {
+  it('Should open the page', () => {
+    cy.visit('https://www.hajper.com/');
+	cy.get('button#btn btn--ghost').click();
+    })
+})
+
+describe('Header buttons availability', () => {
+  it('Should display the Spelpaus, Spelgranser and Sjalvtest header buttons', () => {
+    cy.get('[class="regulations-header-sga__RegulationsIcon-sc-pgu2pb-1 regulations-header-sga__RegulationsIconPause-sc-pgu2pb-2 jiRjhg cWzpRE"]').should('be.visible');
+	cy.get('[class="regulations-header-sga__RegulationsIcon-sc-pgu2pb-1 regulations-header-sga__RegulationsIconLimits-sc-pgu2pb-3 jiRjhg jWDjGD"]').should('be.visible');
+	cy.get('[class="regulations-header-sga__RegulationsIcon-sc-pgu2pb-1 regulations-header-sga__RegulationsIconTest-sc-pgu2pb-4 jiRjhg locoAS"]').should('be.visible');
+	})
+})
+
+describe('Footer "Spel inspektionen" image availability', () => {
+   it("Should display the Spel inspektionen image ", () => {
+   cy.get('[class="licenses-logos__spelinspektionen u-dib"]').should('be.visible')
+	})
+})
+
+
+describe('Not logged in user love game notification', () => {
+   it("Should display the 'Dina favoriter är kopplade till ditt saldo, klicka på Hämta saldo eller Sätt in för att lägga till dina favoriter' notification after clicking on the love-icon", () => {
+   cy.get('[data-at="product-casino"]').click();
+   cy.get('[alt="Reactoonz"]').click();
+   cy.get('[class="icon__Svg-sc-195gh6j-0 dHhpbr item__love-icon icon--sprite"]').click();
+   cy.contains('Dina favoriter är kopplade till ditt saldo, klicka på Hämta saldo eller Sätt in för att lägga till dina favoriter');
+     })
+})  
