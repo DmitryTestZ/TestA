@@ -8,6 +8,19 @@ Follow https://docs.google.com/document/d/1mRxmgaHH0EtMbx0arT-yRxpxPJi6Vd4DoKk8W
 “Aircraft information” and  “Flight Information” blocks testing
 
 1.  How would you approach the test planning?
+
+If we’re talking about perfect world test approach (not in terms of the plinefinder)
+1. Analyze what exactly should be tested / what is out of scope
+2. Define timeframes / deadlines for the testing
+3. Define resources and get estimates
+4. Define platforms to be tested on (mobile, tablet, desktop). Check the popularity of devices via e.g. Google Analytics, research browser/device market or just approve the device list with PO/PM
+5. Analyze requirements, make sure all cases are covered in acceptance criteria 
+6. Perform static testing of requirements
+7. Come up with the test cases and prioritize them as P0, P1, P2
+8. Mark test cases, that should be automated, prioritize
+9. Prepare template for the test report
+
+
 The testing process should be separated into the Unit testing for each data type, displayed in the “Aircraft information” and  “Flight Information” blocks. It can be based on the API testing of the displaying data according to the DB (SQL). 
 Tests can be automated for running in different environments.
 As those block data are almost fully locked for the non-premium users, test cases should be separated into the “not premium” and “premium users”. In the first condition we need to verify that the user hasn’t accessed the data from the “Aircraft information” and  “Flight Information” blocks and in the second condition, verify that the user has access to all data from the “Aircraft information” and  “Flight Information” blocks.
